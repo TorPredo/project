@@ -52,6 +52,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html {
@@ -65,12 +66,14 @@
             line-height: 1.6;
             overflow-x: hidden;
             transition: all 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 20px;
         }
 
         /* Header Styles */
@@ -95,11 +98,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 16px 0;
+            min-height: 70px;
         }
 
         .logo {
             font-family: 'Orbitron', monospace;
-            font-size: 28px;
+            font-size: clamp(20px, 5vw, 28px);
             font-weight: 700;
             color: var(--accent-color);
             text-decoration: none;
@@ -113,7 +117,7 @@
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 32px;
+            gap: 24px;
             align-items: center;
         }
 
@@ -123,25 +127,13 @@
             font-weight: 500;
             transition: all 0.3s ease;
             position: relative;
+            padding: 8px 12px;
+            border-radius: 6px;
         }
 
         .nav-link:hover {
             color: var(--accent-color);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-color);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
+            background: rgba(0, 212, 255, 0.1);
         }
 
         .theme-toggle {
@@ -156,6 +148,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            touch-action: manipulation;
         }
 
         .theme-toggle:hover {
@@ -170,6 +163,14 @@
             color: var(--text-primary);
             font-size: 24px;
             cursor: pointer;
+            padding: 12px;
+            border-radius: 6px;
+            touch-action: manipulation;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: rgba(0, 212, 255, 0.1);
         }
 
         /* Hero Section */
@@ -180,6 +181,7 @@
             background: var(--gradient-primary);
             position: relative;
             overflow: hidden;
+            padding-top: 70px;
         }
 
         .hero::before {
@@ -199,11 +201,12 @@
             text-align: center;
             max-width: 800px;
             margin: 0 auto;
+            padding: 40px 0;
         }
 
         .hero h1 {
             font-family: 'Orbitron', monospace;
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(1.8rem, 8vw, 4rem);
             font-weight: 700;
             margin-bottom: 24px;
             background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-color) 100%);
@@ -211,45 +214,55 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: fadeInUp 1s ease 0.2s both;
+            line-height: 1.2;
         }
 
         .hero p {
-            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            font-size: clamp(1rem, 4vw, 1.3rem);
             color: var(--text-secondary);
             margin-bottom: 40px;
             animation: fadeInUp 1s ease 0.4s both;
+            line-height: 1.6;
         }
 
         .cta-buttons {
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            gap: 16px;
             justify-content: center;
-            flex-wrap: wrap;
+            align-items: center;
             animation: fadeInUp 1s ease 0.6s both;
         }
 
         .btn {
-            padding: 16px 32px;
+            padding: 18px 32px;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: 600;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 16px;
+            min-height: 56px;
+            width: 100%;
+            max-width: 280px;
+            touch-action: manipulation;
+            user-select: none;
         }
 
         .btn-primary {
             background: var(--gradient-accent);
             color: white;
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px var(--shadow);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
         }
 
         .btn-secondary {
@@ -266,27 +279,29 @@
 
         /* Section Styles */
         .section {
-            padding: 100px 0;
+            padding: 80px 0;
             position: relative;
         }
 
         .section-title {
             font-family: 'Orbitron', monospace;
-            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
             font-weight: 600;
             text-align: center;
             margin-bottom: 16px;
             color: var(--text-primary);
+            line-height: 1.3;
         }
 
         .section-subtitle {
             text-align: center;
             color: var(--text-secondary);
-            font-size: 18px;
-            margin-bottom: 60px;
+            font-size: clamp(14px, 4vw, 18px);
+            margin-bottom: 50px;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.6;
         }
 
         /* About Section */
@@ -296,68 +311,75 @@
 
         .about-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            text-align: center;
         }
 
         .about-text {
-            font-size: 18px;
+            font-size: clamp(16px, 4vw, 18px);
             line-height: 1.7;
             color: var(--text-secondary);
         }
 
         .about-features {
             display: grid;
-            gap: 24px;
+            gap: 20px;
         }
 
         .feature-item {
             display: flex;
             align-items: center;
             gap: 16px;
-            padding: 20px;
+            padding: 24px 20px;
             background: var(--card-bg);
-            border-radius: 12px;
+            border-radius: 16px;
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
+            text-align: left;
         }
 
         .feature-item:hover {
-            transform: translateX(8px);
+            transform: translateY(-4px);
             border-color: var(--accent-color);
+            box-shadow: 0 8px 24px var(--shadow);
         }
 
         .feature-icon {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             background: var(--gradient-accent);
-            border-radius: 8px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 20px;
+            font-size: 24px;
             flex-shrink: 0;
         }
 
         /* Solutions Section */
         .solutions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 32px;
+            grid-template-columns: 1fr;
+            gap: 24px;
         }
 
         .solution-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 32px;
+            border-radius: 20px;
+            padding: 32px 24px;
             text-align: center;
             transition: all 0.4s ease;
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            touch-action: manipulation;
         }
 
         .solution-card::before {
@@ -378,19 +400,19 @@
         .solution-card:hover {
             transform: translateY(-8px);
             border-color: var(--accent-color);
-            box-shadow: 0 20px 40px var(--shadow);
+            box-shadow: 0 16px 40px var(--shadow);
         }
 
         .solution-icon {
-            width: 64px;
-            height: 64px;
+            width: 72px;
+            height: 72px;
             background: var(--gradient-accent);
-            border-radius: 12px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
-            font-size: 28px;
+            font-size: 32px;
             color: white;
             transition: all 0.3s ease;
         }
@@ -401,15 +423,17 @@
 
         .solution-card h3 {
             font-family: 'Orbitron', monospace;
-            font-size: 20px;
+            font-size: clamp(18px, 4vw, 20px);
             font-weight: 600;
             margin-bottom: 12px;
             color: var(--text-primary);
+            line-height: 1.3;
         }
 
         .solution-card p {
             color: var(--text-secondary);
             line-height: 1.6;
+            font-size: clamp(14px, 3vw, 16px);
         }
 
         /* Cases Section */
@@ -419,21 +443,21 @@
 
         .cases-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 32px;
+            grid-template-columns: 1fr;
+            gap: 24px;
         }
 
         .case-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 32px;
+            border-radius: 20px;
+            padding: 28px 24px;
             transition: all 0.3s ease;
         }
 
         .case-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 15px 30px var(--shadow);
+            box-shadow: 0 12px 30px var(--shadow);
         }
 
         .case-header {
@@ -444,8 +468,8 @@
         }
 
         .case-avatar {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             background: var(--gradient-accent);
             border-radius: 50%;
             display: flex;
@@ -453,49 +477,291 @@
             justify-content: center;
             color: white;
             font-weight: 600;
+            font-size: 18px;
         }
 
         .case-info h4 {
             font-weight: 600;
             margin-bottom: 4px;
             color: var(--text-primary);
+            font-size: clamp(16px, 4vw, 18px);
         }
 
         .case-info span {
             color: var(--text-tertiary);
-            font-size: 14px;
+            font-size: clamp(12px, 3vw, 14px);
         }
 
         .case-quote {
             font-style: italic;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             color: var(--text-secondary);
             line-height: 1.6;
+            font-size: clamp(14px, 4vw, 16px);
         }
 
         .case-metrics {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
             gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .metric {
             text-align: center;
         }
 
         .metric-value {
             font-family: 'Orbitron', monospace;
-            font-size: 24px;
+            font-size: clamp(20px, 5vw, 24px);
             font-weight: 700;
             color: var(--accent-color);
             display: block;
+            line-height: 1;
         }
 
         .metric-label {
-            font-size: 12px;
+            font-size: clamp(10px, 3vw, 12px);
             color: var(--text-tertiary);
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent-color);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 24px 20px;
+            text-align: left;
+            color: var(--text-primary);
+            font-size: clamp(14px, 4vw, 16px);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+            line-height: 1.4;
+            gap: 16px;
+            touch-action: manipulation;
+            min-height: 60px;
+        }
+
+        .faq-question:hover {
+            color: var(--accent-color);
+        }
+
+        .faq-icon {
+            font-size: 24px;
+            transition: transform 0.3s ease;
+            color: var(--accent-color);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 20px 24px 20px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: clamp(14px, 4vw, 16px);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+            margin: 20px;
+        }
+
+        .modal-header {
+            padding: 24px 20px 20px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+        }
+
+        .modal-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-accent);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(16px, 5vw, 20px);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1.3;
+            flex: 1;
+            padding-right: 40px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 16px;
+            background: var(--border-color);
+            border: none;
+            color: var(--text-primary);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+        }
+
+        .modal-close:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .modal-body {
+            padding: 24px 20px;
+        }
+
+        .example-section {
+            margin-bottom: 28px;
+        }
+
+        .example-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: clamp(14px, 4vw, 16px);
+        }
+
+        .example-content {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            font-size: clamp(14px, 4vw, 16px);
+            line-height: 1.6;
+        }
+
+        .before-after {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .before, .after {
+            padding: 16px;
+            border-radius: 12px;
+            border-left: 4px solid;
+            font-style: italic;
+            font-size: clamp(13px, 3.5vw, 14px);
+            line-height: 1.6;
+        }
+
+        .before {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #EF4444;
+            color: var(--text-secondary);
+        }
+
+        .after {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: #22C55E;
+            color: var(--text-secondary);
+        }
+
+        .example-result {
+            background: var(--accent-color);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 16px;
+            font-size: clamp(14px, 4vw, 16px);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
         /* Contact Section */
@@ -515,75 +781,87 @@
         }
 
         .form-label {
-            font-weight: 500;
+            font-weight: 600;
             color: var(--text-primary);
+            font-size: clamp(14px, 4vw, 16px);
+            margin-bottom: 8px;
         }
 
         .form-input,
         .form-textarea {
-            padding: 16px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            padding: 18px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
             background: var(--card-bg);
             color: var(--text-primary);
             font-family: inherit;
             transition: all 0.3s ease;
+            font-size: 16px;
+            min-height: 56px;
+            touch-action: manipulation;
         }
 
         .form-input:focus,
         .form-textarea:focus {
             outline: none;
             border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1);
         }
 
         .form-textarea {
             resize: vertical;
             min-height: 120px;
+            line-height: 1.6;
         }
 
         .submit-btn {
-            padding: 16px 32px;
+            padding: 18px 32px;
             background: var(--gradient-accent);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            min-height: 56px;
+            font-size: 16px;
+            touch-action: manipulation;
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
         }
 
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px var(--shadow);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
         }
 
         .submit-btn:disabled {
             opacity: 0.7;
             cursor: not-allowed;
+            transform: none;
         }
 
         .form-message {
-            padding: 16px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 12px;
             margin-top: 16px;
             font-weight: 500;
             text-align: center;
             transition: all 0.3s ease;
+            font-size: clamp(14px, 4vw, 16px);
         }
 
         .form-message.success {
             background: rgba(34, 197, 94, 0.1);
             color: #22C55E;
-            border: 1px solid #22C55E;
+            border: 2px solid #22C55E;
         }
 
         .form-message.error {
             background: rgba(239, 68, 68, 0.1);
             color: #EF4444;
-            border: 1px solid #EF4444;
+            border: 2px solid #EF4444;
         }
 
         /* Footer */
@@ -595,37 +873,45 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 40px;
             margin-bottom: 40px;
+            text-align: center;
         }
 
         .footer-brand h3 {
             font-family: 'Orbitron', monospace;
             color: var(--accent-color);
             margin-bottom: 16px;
+            font-size: clamp(20px, 5vw, 24px);
         }
 
         .footer-brand p {
             color: var(--text-secondary);
             line-height: 1.6;
+            font-size: clamp(14px, 4vw, 16px);
         }
 
         .footer-links h4 {
             color: var(--text-primary);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             font-weight: 600;
+            font-size: clamp(16px, 4vw, 18px);
         }
 
         .footer-links ul {
             list-style: none;
+            display: grid;
+            gap: 12px;
         }
 
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            line-height: 2;
+            padding: 8px 0;
             transition: color 0.3s ease;
+            font-size: clamp(14px, 4vw, 16px);
+            touch-action: manipulation;
         }
 
         .footer-links a:hover {
@@ -637,6 +923,7 @@
             padding-top: 30px;
             border-top: 1px solid var(--border-color);
             color: var(--text-tertiary);
+            font-size: clamp(12px, 3vw, 14px);
         }
 
         /* Animations */
@@ -648,28 +935,6 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
             }
         }
 
@@ -685,34 +950,72 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 1024px) {
+        @media (min-width: 768px) {
             .container {
-                padding: 0 20px;
-            }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                text-align: center;
+                padding: 0 40px;
             }
 
-            .footer-content {
+            .cta-buttons {
+                flex-direction: row;
+                gap: 20px;
+            }
+
+            .solutions-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+
+            .about-content {
                 grid-template-columns: 1fr 1fr;
-                gap: 30px;
+                gap: 60px;
+                text-align: left;
+            }
+
+            .nav-menu {
+                gap: 32px;
+            }
+
+            .mobile-menu-toggle {
+                display: none;
             }
         }
 
-        @media (max-width: 768px) {
+        @media (min-width: 1024px) {
+            .solutions-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 2fr 1fr 1fr;
+                text-align: left;
+            }
+
+            .section {
+                padding: 100px 0;
+            }
+
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        @media (max-width: 767px) {
             .nav-menu {
                 display: none;
-                position: absolute;
-                top: 100%;
+                position: fixed;
+                top: 70px;
                 left: 0;
                 right: 0;
                 background: var(--primary-bg);
                 flex-direction: column;
-                padding: 20px;
-                border-top: 1px solid var(--border-color);
+                padding: 30px 20px;
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                gap: 20px;
+            }
+
+            [data-theme="light"] .nav-menu {
+                background: var(--primary-bg);
             }
 
             .nav-menu.active {
@@ -723,37 +1026,43 @@
                 display: block;
             }
 
-            .hero {
-                padding: 120px 0 60px;
-                min-height: auto;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
+            .nav-link {
+                padding: 16px 20px;
+                text-align: center;
+                border-radius: 12px;
+                font-size: 16px;
                 width: 100%;
-                max-width: 280px;
-                justify-content: center;
+            }
+
+            .hero {
+                min-height: 100vh;
+                padding-top: 70px;
             }
 
             .solution-card {
-                padding: 24px;
+                padding: 28px 20px;
+                min-height: 220px;
             }
 
-            .cases-grid {
-                grid-template-columns: 1fr;
+            .modal-content {
+                max-height: 85vh;
+                margin: 10px;
             }
 
-            .case-metrics {
-                justify-content: center;
+            .modal-header {
+                padding: 20px 16px 16px 16px;
             }
 
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
+            .modal-body {
+                padding: 20px 16px;
+            }
+
+            .modal-close {
+                top: 16px;
+                right: 12px;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
             }
         }
 
@@ -784,6 +1093,25 @@
             z-index: 9999;
             transition: width 0.1s ease;
         }
+
+        /* Touch improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .solution-card:hover {
+                transform: none;
+            }
+
+            .solution-card:active {
+                transform: scale(0.98);
+            }
+
+            .btn:hover {
+                transform: none;
+            }
+
+            .btn:active {
+                transform: scale(0.98);
+            }
+        }
     </style>
 </head>
 <body>
@@ -798,6 +1126,7 @@
                     <li><a href="#about" class="nav-link">Sobre</a></li>
                     <li><a href="#solutions" class="nav-link">Serviços</a></li>
                     <li><a href="#cases" class="nav-link">Resultados</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
                     <li><a href="#contact" class="nav-link">Contato</a></li>
                 </nav>
                 <div style="display: flex; align-items: center; gap: 16px;">
@@ -876,32 +1205,32 @@
             <h2 class="section-title animate-on-scroll">Nossos Serviços</h2>
             <p class="section-subtitle animate-on-scroll">Soluções práticas de IA para economizar tempo e acelerar resultados no seu negócio</p>
             <div class="solutions-grid">
-                <div class="solution-card animate-on-scroll">
+                <div class="solution-card animate-on-scroll" onclick="openModal('content-modal')">
                     <div class="solution-icon">✍️</div>
                     <h3>Otimização de Conteúdo</h3>
                     <p>Melhore descrições de produtos, posts para redes sociais e materiais de marketing. Crie conteúdos que vendem em minutos, não horas.</p>
                 </div>
-                <div class="solution-card animate-on-scroll">
+                <div class="solution-card animate-on-scroll" onclick="openModal('seo-modal')">
                     <div class="solution-icon">🔍</div>
                     <h3>SEO Inteligente</h3>
                     <p>Apareça melhor no Google com otimizações automáticas. Aumente suas visitas online sem precisar entender de programação ou códigos.</p>
                 </div>
-                <div class="solution-card animate-on-scroll">
+                <div class="solution-card animate-on-scroll" onclick="openModal('schedule-modal')">
                     <div class="solution-icon">📅</div>
                     <h3>Agendamento Automático</h3>
                     <p>Sistema simples para clientes agendarem sozinhos. Pare de ficar no celular confirmando horários e foque no atendimento.</p>
                 </div>
-                <div class="solution-card animate-on-scroll">
+                <div class="solution-card animate-on-scroll" onclick="openModal('ideas-modal')">
                     <div class="solution-icon">💡</div>
                     <h3>Geração de Ideias</h3>
                     <p>Nunca mais fique sem ideias para posts, promoções ou campanhas. IA que gera conteúdo criativo adaptado ao seu negócio.</p>
                 </div>
-                <div class="solution-card animate-on-scroll">
+                <div class="solution-card animate-on-scroll" onclick="openModal('analytics-modal')">
                     <div class="solution-icon">📊</div>
                     <h3>Análise de Dados Simples</h3>
                     <p>Entenda seus números de forma clara. Relatórios automáticos que mostram o que está funcionando e onde melhorar.</p>
                 </div>
-                <div class="solution-card animate-on-scroll">
+                <div class="solution-card animate-on-scroll" onclick="openModal('training-modal')">
                     <div class="solution-icon">🎓</div>
                     <h3>Treinamento Prático</h3>
                     <p>Aprenda a usar as ferramentas no seu ritmo. Suporte contínuo até você ficar independente e confiante.</p>
@@ -998,6 +1327,344 @@
         </div>
     </section>
 
+    <!-- FAQ Section -->
+    <section class="section faq" id="faq">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Perguntas Frequentes</h2>
+            <p class="section-subtitle animate-on-scroll">Tudo que você precisa saber sobre IA para seu negócio</p>
+            <div class="faq-container animate-on-scroll">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>IA é muito complicada para meu negócio pequeno?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Não! Essa é a maior mentira sobre IA. Trabalho especificamente para tornar IA simples e acessível. As soluções que crio são tão fáceis que você aprende a usar em 15 minutos. Não precisa entender de tecnologia - só precisa querer economizar tempo e aumentar resultados.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Quanto custa para implementar IA no meu negócio?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Muito menos do que você imagina! Não trabalho com grandes investimentos ou sistemas caros. As soluções são pensadas para pequenos negócios, com preços acessíveis. Na consulta gratuita, mostro exatamente quanto custaria para seu caso específico - sem surpresas.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Quanto tempo leva para ver resultados?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Você economiza tempo já no primeiro dia! Por exemplo, se implementarmos geração de conteúdo, você vai criar posts em minutos ao invés de horas. Para resultados de vendas e SEO, normalmente vemos melhorias entre 2-4 semanas. O importante é que você sente a diferença imediatamente.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Preciso contratar funcionário novo ou aprender programação?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Nem um nem outro! Você mesmo vai conseguir usar tudo que implemento. Não precisa programar nada, não precisa contratar ninguém. Ensino tudo de forma prática, e você fica independente. Se tiver dúvidas depois, dou suporte até você ficar confiante.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Meus dados ficam seguros com IA?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Absolutamente! Uso apenas ferramentas confiáveis e ensino as melhores práticas de segurança. Seus dados pessoais e do negócio ficam protegidos. Nunca recomendo soluções que comprometam sua privacidade ou a de seus clientes.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>IA vai substituir meu trabalho ou meus funcionários?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Não! IA não substitui você - ela te deixa mais eficiente. Automatizo tarefas chatas e repetitivas para você focar no que realmente importa: atender bem seus clientes e fazer seu negócio crescer. Você continua sendo o cérebro, a IA só ajuda com tarefas operacionais.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Funciona para qualquer tipo de negócio?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Sim! Já ajudei e-commerce, salões, corretores, consultores, lojas físicas, prestadores de serviços. IA serve para qualquer negócio que precise criar conteúdo, organizar agendamentos, melhorar atendimento ou otimizar processos. Na consulta gratuita, vejo exatamente como aplicar no seu caso.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>E se eu não conseguir aprender a usar?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Impossível! Já ensinei pessoas de 20 a 70 anos, desde quem ama tecnologia até quem tem dificuldades com celular. Meu método é super didático e paciente. Acompanho você até dominar completamente. E se precisar de reforço, estou sempre disponível.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Modals -->
+    <div class="modal-overlay" id="content-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">✍️</div>
+                <h3 class="modal-title">Otimização de Conteúdo</h3>
+                <button class="modal-close" onclick="closeModal('content-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="example-section">
+                    <div class="example-title">📝 Exemplo: Descrição de Produto</div>
+                    <div class="before-after">
+                        <div class="before">
+                            <strong>Antes (manual):</strong><br>
+                            "Camiseta bonita, cor azul, tecido bom, tamanho M."
+                        </div>
+                        <div class="after">
+                            <strong>Depois (com IA):</strong><br>
+                            "Camiseta Premium Masculina - Azul Royal | Tecido 100% Algodão Pima | Corte Moderno e Confortável | Ideal para o Dia a Dia | Tamanho M | Resistente a Lavagem | Estilo Casual Elegante"
+                        </div>
+                    </div>
+                    <div class="example-result">
+                        Resultado: 300% mais visitas e 85% mais vendas
+                    </div>
+                </div>
+
+                <div class="example-section">
+                    <div class="example-title">⚡ Como Funciona</div>
+                    <div class="example-content">
+                        1. <strong>Você fornece:</strong> Produto/serviço básico<br>
+                        2. <strong>IA analisa:</strong> Mercado, concorrentes, palavras-chave<br>
+                        3. <strong>Gera automaticamente:</strong> Títulos, descrições, posts otimizados<br>
+                        4. <strong>Você aprova:</strong> E publica em segundos
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="seo-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">🔍</div>
+                <h3 class="modal-title">SEO Inteligente</h3>
+                <button class="modal-close" onclick="closeModal('seo-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="example-section">
+                    <div class="example-title">🎯 Exemplo: Loja de Roupas</div>
+                    <div class="before-after">
+                        <div class="before">
+                            <strong>Antes:</strong><br>
+                            Aparecia na página 3 do Google para "roupas femininas"
+                        </div>
+                        <div class="after">
+                            <strong>Depois:</strong><br>
+                            1º lugar para "vestidos casuais São Paulo", "blusas femininas modernas", "roupas trabalho mulher"
+                        </div>
+                    </div>
+                    <div class="example-result">
+                        Resultado: 400% mais visitas do Google em 3 meses
+                    </div>
+                </div>
+
+                <div class="example-section">
+                    <div class="example-title">🛠️ O Que Fazemos</div>
+                    <div class="example-content">
+                        ✅ <strong>Pesquisa de palavras-chave:</strong> Descubro o que seus clientes procuram<br>
+                        ✅ <strong>Otimização automática:</strong> Títulos, descrições e conteúdo<br>
+                        ✅ <strong>Monitoramento:</strong> Acompanho suas posições no Google<br>
+                        ✅ <strong>Relatórios simples:</strong> Você vê o progresso toda semana
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="schedule-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">📅</div>
+                <h3 class="modal-title">Agendamento Automático</h3>
+                <button class="modal-close" onclick="closeModal('schedule-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="example-section">
+                    <div class="example-title">💆‍♀️ Exemplo: Salão de Beleza</div>
+                    <div class="before-after">
+                        <div class="before">
+                            <strong>Antes:</strong><br>
+                            "Oi! Posso agendar para sexta às 14h? E se não der, que horas tem vaga?"
+                            <br><em>6 mensagens de WhatsApp para confirmar 1 horário</em>
+                        </div>
+                        <div class="after">
+                            <strong>Depois:</strong><br>
+                            Cliente acessa link, vê agenda em tempo real, escolhe horário livre e confirma sozinho.
+                            <br><em>Zero mensagens. Tudo automático.</em>
+                        </div>
+                    </div>
+                    <div class="example-result">
+                        Economia de 6 horas por dia + 40% menos desencontros
+                    </div>
+                </div>
+
+                <div class="example-section">
+                    <div class="example-title">📱 Como Funciona</div>
+                    <div class="example-content">
+                        1. <strong>Cliente acessa:</strong> Link simples no WhatsApp/Instagram<br>
+                        2. <strong>Vê agenda real:</strong> Horários livres em tempo real<br>
+                        3. <strong>Agenda sozinho:</strong> Escolhe serviço, data e hora<br>
+                        4. <strong>Confirmação automática:</strong> Para você e para o cliente
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="ideas-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">💡</div>
+                <h3 class="modal-title">Geração de Ideias</h3>
+                <button class="modal-close" onclick="closeModal('ideas-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="example-section">
+                    <div class="example-title">📱 Exemplo: Posts para Instagram</div>
+                    <div class="before-after">
+                        <div class="before">
+                            <strong>Antes:</strong><br>
+                            "Não sei o que postar hoje... Vou postar uma foto do produto mesmo."
+                            <br><em>2 horas pensando, resultado sem engajamento</em>
+                        </div>
+                        <div class="after">
+                            <strong>Depois:</strong><br>
+                            "5 dicas para conservar suas roupas por mais tempo", "Como combinar acessórios no trabalho", "Tendências outono 2025"
+                            <br><em>30 ideias criativas em 5 minutos</em>
+                        </div>
+                    </div>
+                    <div class="example-result">
+                        300% mais engajamento e 50% mais seguidores
+                    </div>
+                </div>
+
+                <div class="example-section">
+                    <div class="example-title">🚀 O Que Você Ganha</div>
+                    <div class="example-content">
+                        ✨ <strong>Ideias ilimitadas:</strong> Posts, stories, campanhas, promoções<br>
+                        ✨ <strong>Adaptado ao seu negócio:</strong> IA aprende seu estilo e público<br>
+                        ✨ <strong>Calendário de conteúdo:</strong> 1 mês de posts em 30 minutos<br>
+                        ✨ <strong>Diferentes formatos:</strong> Carrossel, vídeo, texto, enquete
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="analytics-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">📊</div>
+                <h3 class="modal-title">Análise de Dados Simples</h3>
+                <button class="modal-close" onclick="closeModal('analytics-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="example-section">
+                    <div class="example-title">📈 Exemplo: Dashboard do Negócio</div>
+                    <div class="before-after">
+                        <div class="before">
+                            <strong>Antes:</strong><br>
+                            Planilhas confusas, números soltos, não sabia se estava indo bem ou mal.
+                        </div>
+                        <div class="after">
+                            <strong>Depois:</strong><br>
+                            "Este mês: 40 novos clientes (+25%), R$ 15.000 faturamento (+30%). Melhor dia: terça. Melhor produto: vestidos."
+                        </div>
+                    </div>
+                    <div class="example-result">
+                        Decisões 5x mais rápidas e assertivas
+                    </div>
+                </div>
+
+                <div class="example-section">
+                    <div class="example-title">📋 Relatórios Automáticos</div>
+                    <div class="example-content">
+                        📊 <strong>Vendas:</strong> Produtos mais vendidos, horários de pico<br>
+                        👥 <strong>Clientes:</strong> Perfil, frequência, ticket médio<br>
+                        💰 <strong>Financeiro:</strong> Faturamento, lucro, custos<br>
+                        🎯 <strong>Marketing:</strong> Posts que mais geram vendas
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="training-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">🎓</div>
+                <h3 class="modal-title">Treinamento Prático</h3>
+                <button class="modal-close" onclick="closeModal('training-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="example-section">
+                    <div class="example-title">👩‍🏫 Como Funciona o Treinamento</div>
+                    <div class="example-content">
+                        <strong>Semana 1:</strong> Instalação e primeiros usos<br>
+                        <strong>Semana 2:</strong> Criação de conteúdo na prática<br>
+                        <strong>Semana 3:</strong> Automações e otimizações<br>
+                        <strong>Semana 4:</strong> Você já é independente!
+                    </div>
+                </div>
+
+                <div class="example-section">
+                    <div class="example-title">🤝 Suporte Incluso</div>
+                    <div class="before-after">
+                        <div class="before">
+                            <strong>Medo comum:</strong><br>
+                            "E se eu não conseguir aprender? Sou meio 'analógico' com tecnologia..."
+                        </div>
+                        <div class="after">
+                            <strong>Realidade:</strong><br>
+                            Explicações passo-a-passo, vídeos práticos, suporte via WhatsApp. Você aprende no seu tempo.
+                        </div>
+                    </div>
+                    <div class="example-result">
+                        100% dos clientes ficam independentes em até 1 mês
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Contact Section -->
     <section class="section contact" id="contact">
         <div class="container">
@@ -1052,8 +1719,8 @@
                     <ul>
                         <li><a href="#about">Sobre</a></li>
                         <li><a href="#cases">Resultados</a></li>
+                        <li><a href="#faq">FAQ</a></li>
                         <li><a href="#contact">Contato</a></li>
-                        <li><a href="#">Política de Privacidade</a></li>
                     </ul>
                 </div>
             </div>
@@ -1066,7 +1733,7 @@
     <script>
         // EmailJS Configuration
         (function() {
-            emailjs.init('GrqQuE4uC5701PMyK'); // Sua Public Key
+            emailjs.init('GrqQuE4uC5701PMyK');
         })();
 
         // Theme toggle functionality
@@ -1074,7 +1741,6 @@
         const themeIcon = document.getElementById('themeIcon');
         const body = document.body;
 
-        // Check for saved theme preference or default to dark
         const savedTheme = localStorage.getItem('theme') || 'dark';
         body.setAttribute('data-theme', savedTheme);
         updateThemeIcon(savedTheme);
@@ -1132,7 +1798,6 @@
             });
         }, observerOptions);
 
-        // Observe all elements with animate-on-scroll class
         document.querySelectorAll('.animate-on-scroll').forEach(el => {
             observer.observe(el);
         });
@@ -1151,6 +1816,55 @@
             });
         });
 
+        // FAQ Toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Modal functionality
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal when clicking overlay
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Close modal with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
+
         // Contact form handling with EmailJS
         const contactForm = document.getElementById('contactForm');
         const submitBtn = document.getElementById('submitBtn');
@@ -1159,15 +1873,12 @@
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Show loading state
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<div class="loading"></div> Enviando...';
             submitBtn.disabled = true;
             
-            // Hide previous messages
             formMessage.style.display = 'none';
             
-            // Get form data
             const formData = new FormData(contactForm);
             const templateParams = {
                 from_name: formData.get('name'),
@@ -1178,14 +1889,12 @@
             };
             
             try {
-                // Send email via EmailJS
                 await emailjs.send(
-                    'service_dsgfypw',        // Seu Service ID
-                    'template_8tgcnaq',       // Seu Template ID CORRETO 
+                    'service_dsgfypw',
+                    'template_8tgcnaq',
                     templateParams
                 );
                 
-                // Show success message
                 showMessage('Perfeito! Sua mensagem foi enviada. Responderemos em até 2 horas! 🚀', 'success');
                 contactForm.reset();
                 
@@ -1193,7 +1902,6 @@
                 console.error('EmailJS Error:', error);
                 showMessage('Erro ao enviar. Tente novamente ou nos chame no WhatsApp.', 'error');
             } finally {
-                // Reset button state
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
             }
@@ -1204,7 +1912,6 @@
             formMessage.className = `form-message ${type}`;
             formMessage.style.display = 'block';
             
-            // Auto-hide success messages after 5 seconds
             if (type === 'success') {
                 setTimeout(() => {
                     formMessage.style.display = 'none';
@@ -1212,37 +1919,44 @@
             }
         }
 
-        // Enhanced solution card interactions
+        // Enhanced solution card interactions for mobile
         document.querySelectorAll('.solution-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-8px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Parallax effect for hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            // Remove hover effects on touch devices
+            if (window.matchMedia('(hover: hover)').matches) {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                });
             }
         });
+
+        // Disable parallax on mobile for performance
+        if (window.matchMedia('(min-width: 768px)').matches) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+            });
+        }
 
         // Header background on scroll
         const header = document.querySelector('.header');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
+            if (window.scrollY > 50) {
                 header.style.background = body.getAttribute('data-theme') === 'dark' 
                     ? 'rgba(11, 20, 38, 0.98)' 
                     : 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
             } else {
                 header.style.background = body.getAttribute('data-theme') === 'dark' 
                     ? 'rgba(11, 20, 38, 0.95)' 
                     : 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
             }
         });
 
@@ -1259,16 +1973,16 @@
             
             if (field.required && !value) {
                 field.style.borderColor = '#EF4444';
-                field.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+                field.style.boxShadow = '0 0 0 4px rgba(239, 68, 68, 0.1)';
             } else if (field.type === 'email' && value && !isValidEmail(value)) {
                 field.style.borderColor = '#EF4444';
-                field.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+                field.style.boxShadow = '0 0 0 4px rgba(239, 68, 68, 0.1)';
             } else if (field.type === 'tel' && value && !isValidPhone(value)) {
                 field.style.borderColor = '#EF4444';
-                field.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+                field.style.boxShadow = '0 0 0 4px rgba(239, 68, 68, 0.1)';
             } else {
                 field.style.borderColor = '#22C55E';
-                field.style.boxShadow = '0 0 0 3px rgba(34, 197, 94, 0.1)';
+                field.style.boxShadow = '0 0 0 4px rgba(34, 197, 94, 0.1)';
             }
         }
 
@@ -1285,6 +1999,17 @@
         function isValidPhone(phone) {
             return /^\(\d{2}\)\s\d{5}-\d{4}$/.test(phone) || /^\d{10,11}$/.test(phone.replace(/\D/g, ''));
         }
+
+        // Prevent zooming on input focus (iOS Safari)
+        document.querySelectorAll('input, textarea, select').forEach(input => {
+            input.addEventListener('focus', () => {
+                document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+            });
+            
+            input.addEventListener('blur', () => {
+                document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width, initial-scale=1.0');
+            });
+        });
     </script>
 </body>
 </html>
